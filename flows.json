@@ -1,0 +1,457 @@
+[
+	{
+		"id": "9ce0c492.ede2b8",
+		"type": "tab",
+		"label": "Arduino",
+		"disabled": false,
+		"info": ""
+	},
+	{
+		"id": "b0d34f21.b584e",
+		"type": "serial in",
+		"z": "9ce0c492.ede2b8",
+		"name": "Receive data",
+		"serial": "a3332ebe.179df",
+		"x": 150,
+		"y": 280,
+		"wires": [
+			[
+				"b7daa87e.3ef6b8"
+			]
+		]
+	},
+	{
+		"id": "ab24a0e.b8b6e6",
+		"type": "debug",
+		"z": "9ce0c492.ede2b8",
+		"name": "Print result",
+		"active": true,
+		"tosidebar": true,
+		"console": false,
+		"tostatus": false,
+		"complete": "payload",
+		"targetType": "msg",
+		"x": 710,
+		"y": 420,
+		"wires": []
+	},
+	{
+		"id": "b7daa87e.3ef6b8",
+		"type": "json",
+		"z": "9ce0c492.ede2b8",
+		"name": "Deserialize JSON",
+		"property": "payload",
+		"action": "",
+		"pretty": false,
+		"x": 350,
+		"y": 280,
+		"wires": [
+			[
+				"ab24a0e.b8b6e6",
+				"ce5b1ae4.4513b8",
+				"5e4bbe00.544f64",
+				"3b7ce357.9c9bbc"
+			]
+		]
+	},
+	{
+		"id": "34d829d.1eed4d6",
+		"type": "mqtt out",
+		"z": "9ce0c492.ede2b8",
+		"name": "Temperature",
+		"topic": "digitalsolutions/smartmask/sensors/temperature",
+		"qos": "0",
+		"retain": "",
+		"broker": "72dc4635.e9e4e8",
+		"x": 930,
+		"y": 220,
+		"wires": []
+	},
+	{
+		"id": "ce5b1ae4.4513b8",
+		"type": "change",
+		"z": "9ce0c492.ede2b8",
+		"name": "Set temperature",
+		"rules": [
+			{
+				"t": "set",
+				"p": "payload",
+				"pt": "msg",
+				"to": "payload.temp",
+				"tot": "msg"
+			}
+		],
+		"action": "",
+		"property": "",
+		"from": "",
+		"to": "",
+		"reg": false,
+		"x": 720,
+		"y": 220,
+		"wires": [
+			[
+				"34d829d.1eed4d6"
+			]
+		]
+	},
+	{
+		"id": "5e4bbe00.544f64",
+		"type": "change",
+		"z": "9ce0c492.ede2b8",
+		"name": "Set humidity",
+		"rules": [
+			{
+				"t": "set",
+				"p": "payload",
+				"pt": "msg",
+				"to": "payload.humid",
+				"tot": "msg"
+			}
+		],
+		"action": "",
+		"property": "",
+		"from": "",
+		"to": "",
+		"reg": false,
+		"x": 710,
+		"y": 280,
+		"wires": [
+			[
+				"ae4de3ce.f7fd5"
+			]
+		]
+	},
+	{
+		"id": "3b7ce357.9c9bbc",
+		"type": "change",
+		"z": "9ce0c492.ede2b8",
+		"name": "Set distance",
+		"rules": [
+			{
+				"t": "set",
+				"p": "payload",
+				"pt": "msg",
+				"to": "payload.dist",
+				"tot": "msg"
+			}
+		],
+		"action": "",
+		"property": "",
+		"from": "",
+		"to": "",
+		"reg": false,
+		"x": 710,
+		"y": 340,
+		"wires": [
+			[
+				"2a33064f.9f3d6a"
+			]
+		]
+	},
+	{
+		"id": "ae4de3ce.f7fd5",
+		"type": "mqtt out",
+		"z": "9ce0c492.ede2b8",
+		"name": "Humidity",
+		"topic": "digitalsolutions/smartmask/sensors/humidity",
+		"qos": "0",
+		"retain": "",
+		"broker": "72dc4635.e9e4e8",
+		"x": 920,
+		"y": 280,
+		"wires": []
+	},
+	{
+		"id": "2a33064f.9f3d6a",
+		"type": "mqtt out",
+		"z": "9ce0c492.ede2b8",
+		"name": "Hand Distance",
+		"topic": "digitalsolutions/smartmask/sensors/hand-distance",
+		"qos": "0",
+		"retain": "",
+		"broker": "72dc4635.e9e4e8",
+		"x": 940,
+		"y": 340,
+		"wires": []
+	},
+	{
+		"id": "de66390a.7b8e28",
+		"type": "comment",
+		"z": "9ce0c492.ede2b8",
+		"name": "",
+		"info": "The data is received from arduino from serial port",
+		"x": 140,
+		"y": 240,
+		"wires": []
+	},
+	{
+		"id": "a0a78398.25c6c",
+		"type": "comment",
+		"z": "9ce0c492.ede2b8",
+		"name": "",
+		"info": "Deserialize json string to javascript object",
+		"x": 320,
+		"y": 240,
+		"wires": []
+	},
+	{
+		"id": "bb99ab0.1ef9458",
+		"type": "comment",
+		"z": "9ce0c492.ede2b8",
+		"name": "",
+		"info": "Each sensor value is changed as the msg payload,\nwhich is sent to each MQTT topic",
+		"x": 700,
+		"y": 180,
+		"wires": []
+	},
+	{
+		"id": "75eb4017.b0a8f",
+		"type": "comment",
+		"z": "9ce0c492.ede2b8",
+		"name": "",
+		"info": "Each node is subscribed to a\ndigitalsolutions/smartmask/sensors/* topic,\nbeing '*' a sensor name",
+		"x": 920,
+		"y": 180,
+		"wires": []
+	},
+	{
+		"id": "a3332ebe.179df",
+		"type": "serial-port",
+		"z": "",
+		"serialport": "COM4",
+		"serialbaud": "115200",
+		"databits": "8",
+		"parity": "none",
+		"stopbits": "1",
+		"waitfor": "",
+		"dtr": "none",
+		"rts": "none",
+		"cts": "none",
+		"dsr": "none",
+		"newline": "\\n",
+		"bin": "false",
+		"out": "char",
+		"addchar": "",
+		"responsetimeout": "200"
+	},
+	{
+		"id": "72dc4635.e9e4e8",
+		"type": "mqtt-broker",
+		"z": "",
+		"name": "Servidor-MTQQ",
+		"broker": "broker.hivemq.com",
+		"port": "1883",
+		"clientid": "clientId-kIXFqW4T30",
+		"usetls": false,
+		"compatmode": true,
+		"keepalive": "200",
+		"cleansession": true,
+		"birthTopic": "",
+		"birthQos": "0",
+		"birthPayload": "",
+		"closeTopic": "",
+		"closeQos": "0",
+		"closePayload": "",
+		"willTopic": "",
+		"willQos": "0",
+		"willPayload": ""
+	},
+	{
+		"id": "297c6a77.fd6f86",
+		"type": "tab",
+		"label": "Dashboard",
+		"disabled": false,
+		"info": "This flow is responsible to update the dashboard according to the values received from MQTT topics"
+	},
+	{
+		"id": "2e198fe4.47672",
+		"type": "mqtt in",
+		"z": "297c6a77.fd6f86",
+		"name": "Temperature",
+		"topic": "digitalsolutions/smartmask/sensors/temperature",
+		"qos": "0",
+		"datatype": "json",
+		"broker": "72dc4635.e9e4e8",
+		"x": 270,
+		"y": 300,
+		"wires": [
+			[
+				"6f28e80b.2363d8"
+			]
+		]
+	},
+	{
+		"id": "58ed40a7.33bbd",
+		"type": "mqtt in",
+		"z": "297c6a77.fd6f86",
+		"name": "Humidity",
+		"topic": "digitalsolutions/smartmask/sensors/humidity",
+		"qos": "0",
+		"datatype": "json",
+		"broker": "72dc4635.e9e4e8",
+		"x": 280,
+		"y": 360,
+		"wires": [
+			[
+				"e23440c5.0c923"
+			]
+		]
+	},
+	{
+		"id": "814c3bd3.eeee58",
+		"type": "mqtt in",
+		"z": "297c6a77.fd6f86",
+		"name": "Hand Distance",
+		"topic": "digitalsolutions/smartmask/sensors/hand-distance",
+		"qos": "0",
+		"datatype": "json",
+		"broker": "72dc4635.e9e4e8",
+		"x": 280,
+		"y": 420,
+		"wires": [
+			[
+				"954011b6.be14"
+			]
+		]
+	},
+	{
+		"id": "6f28e80b.2363d8",
+		"type": "ui_gauge",
+		"z": "297c6a77.fd6f86",
+		"name": "Temperature",
+		"group": "de506f1.15b179",
+		"order": 3,
+		"width": 0,
+		"height": 0,
+		"gtype": "gage",
+		"title": "Temperature",
+		"label": "Celsius",
+		"format": "{{value|number:2}} °C",
+		"min": "0",
+		"max": "200",
+		"colors": [
+			"#00b0b3",
+			"#00e61b",
+			"#ca3838"
+		],
+		"seg1": "",
+		"seg2": "",
+		"x": 630,
+		"y": 300,
+		"wires": []
+	},
+	{
+		"id": "e23440c5.0c923",
+		"type": "ui_gauge",
+		"z": "297c6a77.fd6f86",
+		"name": "Humidity",
+		"group": "de506f1.15b179",
+		"order": 3,
+		"width": 0,
+		"height": 0,
+		"gtype": "donut",
+		"title": "Humidity",
+		"label": "Percentage",
+		"format": "{{value|number:2}} %",
+		"min": "0",
+		"max": "100",
+		"colors": [
+			"#ffea9e",
+			"#a3ffcb",
+			"#009dff"
+		],
+		"seg1": "",
+		"seg2": "",
+		"x": 620,
+		"y": 360,
+		"wires": []
+	},
+	{
+		"id": "954011b6.be14",
+		"type": "ui_gauge",
+		"z": "297c6a77.fd6f86",
+		"name": "Hand distance",
+		"group": "de506f1.15b179",
+		"order": 3,
+		"width": 0,
+		"height": 0,
+		"gtype": "donut",
+		"title": "Hand distance",
+		"label": "cm",
+		"format": "{{value|number:2}} cm",
+		"min": "2",
+		"max": "30",
+		"colors": [
+			"#ff3d77",
+			"#ffb83d",
+			"#2eff7e"
+		],
+		"seg1": "",
+		"seg2": "",
+		"x": 640,
+		"y": 420,
+		"wires": []
+	},
+	{
+		"id": "69d6ecb5.c3e2b4",
+		"type": "comment",
+		"z": "297c6a77.fd6f86",
+		"name": "",
+		"info": "Each node is subscribed to a\ndigitalsolutions/smartmask/sensors/* topic,\nbeing '*' a sensor name",
+		"x": 280,
+		"y": 240,
+		"wires": []
+	},
+	{
+		"id": "415c4263.2003dc",
+		"type": "comment",
+		"z": "297c6a77.fd6f86",
+		"name": "",
+		"info": "Each value is sent to a gauge and a graph, where\nthe gauge will display the current value of the sensor,\nand the graph will show the variation in the last\nhour.",
+		"x": 620,
+		"y": 240,
+		"wires": []
+	},
+	{
+		"id": "72dc4635.e9e4e8",
+		"type": "mqtt-broker",
+		"z": "",
+		"name": "Servidor-MTQQ",
+		"broker": "broker.hivemq.com",
+		"port": "1883",
+		"clientid": "clientId-kIXFqW4T30",
+		"usetls": false,
+		"compatmode": true,
+		"keepalive": "200",
+		"cleansession": true,
+		"birthTopic": "",
+		"birthQos": "0",
+		"birthPayload": "",
+		"closeTopic": "",
+		"closeQos": "0",
+		"closePayload": "",
+		"willTopic": "",
+		"willQos": "0",
+		"willPayload": ""
+	},
+	{
+		"id": "de506f1.15b179",
+		"type": "ui_group",
+		"z": "",
+		"name": "Info",
+		"tab": "db76abd1.99a188",
+		"order": 1,
+		"disp": true,
+		"width": "4",
+		"collapse": true
+	},
+	{
+		"id": "db76abd1.99a188",
+		"type": "ui_tab",
+		"z": "",
+		"name": "Sensors",
+		"icon": "dashboard",
+		"disabled": false,
+		"hidden": false
+	}
+]
